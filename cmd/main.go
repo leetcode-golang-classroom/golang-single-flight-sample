@@ -32,7 +32,9 @@ func main() {
 	var g singleflight.Group
 	for i := 0; i < 10; i++ {
 		wg.Add(1)
-		go getDataSingleFlight(&g, &wg)
+		go func() {
+			_ = getDataSingleFlight(&g, &wg)
+		}()
 	}
 	wg.Wait()
 	fmt.Printf("original function was called %d times\n", count)
